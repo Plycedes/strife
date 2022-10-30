@@ -14,7 +14,9 @@ class Room(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     topic = models.ForeignKey(Topic, null=True, on_delete=models.SET_NULL)
     host = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    
+
+    class Meta:
+        ordering = ['-updated', 'created']
 
     def __str__(self):
         return self.name
