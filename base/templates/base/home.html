@@ -2,10 +2,33 @@
 
 {% block content %}
 
-<h1>Home</h1>
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+    }
+    .topics{
+        size: 14px;
+    }
+</style>
 
-<div>
-    <h2><a href="{% url 'create-room' %}">Create Room</a></h2>
+<div class="home-container">
+    <div>
+        <h2>Browse Topics</h2>
+        <hr>
+
+        <div>
+            <p class="topics"><a href="{% url 'home' %}">All</a></p>
+        </div>
+
+        {% for topic in topics %}
+            <div>
+                <p class="topics"><a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a></p>
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        <h3><a href="{% url 'create-room' %}">Create Room</a></h3>
     <div>
         {% for room in rooms %}
         <div>
@@ -18,6 +41,7 @@
         </div>
         {% endfor %}
     </div>
+    </div>    
 </div>
 
 {% endblock content %}
