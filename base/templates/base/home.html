@@ -28,19 +28,20 @@
         {% endfor %}
     </div>
     <div>
+        <h5>{{room_count}} rooms available</h5>
         <h3><a href="{% url 'create-room' %}">Create Room</a></h3>
-    <div>
-        {% for room in rooms %}
         <div>
-            <span>@{{room.host.username}}</span>
-            <h4>{{ room.id }} -- <a href="{% url 'room' room.id %}">{{ room.name }}</a></h4>
-            <p>{{room.topic.name}}</p>
-            <a href="{% url 'update-room' room.id %}">Edit</a>
-            <a href="{% url 'delete-room' room.id %}">Delete</a>            
-            <hr>
+            {% for room in rooms %}
+            <div>
+                <span>@{{room.host.username}}</span>
+                <h4>{{ room.id }} -- <a href="{% url 'room' room.id %}">{{ room.name }}</a></h4>
+                <p>{{room.topic.name}}</p>
+                <a href="{% url 'update-room' room.id %}">Edit</a>
+                <a href="{% url 'delete-room' room.id %}">Delete</a>            
+                <hr>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
     </div>    
 </div>
 
