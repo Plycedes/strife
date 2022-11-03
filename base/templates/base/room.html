@@ -1,7 +1,45 @@
-{% extends 'index.html' %}
+{% extends 'index.html' %} {% block content %}
 
-{% block content %}
+<style>
+    .room-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
 
-<h1>{{room.name}}</h1>
+<div class="room-container">
+    <div>
+        <h1>{{room.name}}</h1>
+
+        <p>{{ room.description }}</p>
+
+        <div class="chat-wrapper">
+            <h3>Chats</h3>
+            <hr />
+
+            {% for chat in chats %}
+            <div>
+                <small>@{{chat.user}} {{chat.created|timesince}} ago</small>
+
+                <p>{{chat.body}}</p>
+                <hr />
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="chat-form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Chat here..." />
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Participants</h3>
+        <hr />
+    </div>
+</div>
 
 {% endblock content %}
