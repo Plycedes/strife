@@ -75,6 +75,7 @@ def home(request):
 def room(request, pk):
     room = Room.objects.get(id=pk) 
     chats = room.message_set.all().order_by('-created')
+    participants = room.participants.all()
 
     if request.method == 'POST':
         message = Message.objects.create(
@@ -82,9 +83,16 @@ def room(request, pk):
             room=room,
             body=request.POST.get('body')
         )
+        room.participants.add(request.user)
         return redirect('room', pk=room.id)
 
-    return render(request, 'base/room.html', {'room': room, 'chats': chats})
+    context = {
+        'room': room,
+        'chats': chats,
+        'participants': participants,
+    }
+
+    return render(request, 'base/room.html', context)
 
 @login_required(login_url='login')
 def createRoom(request):    
@@ -117,7 +125,23 @@ def updateRoom(request, pk):
 @login_required(login_url='login')
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
+
+    if request.user != room.host:
+        return HttpResponse('Unauthorized user!!')
+
     if request.method == 'POST':
         room.delete()
         return redirect('home')
     return render(request, 'base/delete.html', {'obj': room})
+
+@login_required(login_url='login')
+def deleteChat(request, pk):
+    message = Message.objects.get(id=pk)
+
+    if request.user != message.user:
+        return HttpResponse('Unauthorized user!!')
+
+    if request.method == 'POST':
+        message.delete()
+        return redirect('home')
+    return render(request, 'base/delete.html', {'obj': message})

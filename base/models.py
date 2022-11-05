@@ -14,6 +14,7 @@ class Room(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     topic = models.ForeignKey(Topic, null=True, on_delete=models.SET_NULL)
     host = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
 
     class Meta:
         ordering = ['-updated', 'created']
