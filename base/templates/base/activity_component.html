@@ -1,15 +1,62 @@
-<h3>Recent Activities</h3>
-<hr />
-{% for chat in chats %}
-<div>
-    <small
-        ><a href="{% url 'user-profile' chat.user.id %}">@{{chat.user}}</a>
-        {{chat.created|timesince}} ago</small
-    >
-    <small>replied to "{{chat.room}}"</small>
-    <p>{{chat}}</p>
-    {% if request.user == chat.user %}
-    <a href="{% url 'delete-chat' chat.id %}">Delete</a>
-    {% endif %}
+<style>
+    .activities-heading {
+        padding-left: 10px;
+        margin-top: -1px;
+        background-color: #4a4a4a;
+        border: 1px solid #2a1b3d;
+        margin-right: -10px;
+    }
+    .activitiesList {
+        padding-left: 10px;
+        background-color: #4a4a4a;
+        margin-top: -5px;
+        margin-right: -10px;
+        padding-top: 1px;
+        padding-bottom: 170%;
+    }
+    .activity-item {
+        height: 110px;
+        width: 245px;
+        background-color: rgba(255, 255, 255, 0.13);
+
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        padding-left: 15px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="activities-heading">
+    <p style="color: rgb(174, 245, 243); font-size: 25px">
+        <strong>Recent Activities</strong>
+    </p>
 </div>
-{% endfor %}
+
+<div class="activitiesList">
+    {% for chat in chats %}
+    <div class="activity-item">
+        <small style="color: aliceblue"
+            ><a
+                href="{% url 'user-profile' chat.user.id %}"
+                style="color: rgb(255, 174, 127); text-decoration: none"
+                >@{{chat.user}}</a
+            >
+            {{chat.created|timesince}} ago
+        </small>
+        <small style="color: aliceblue">replied to "{{chat.room}}"</small>
+        <p style="color: wheat">{{chat}}</p>
+        {% if request.user == chat.user %}
+        <a
+            href="{% url 'delete-chat' chat.id %}"
+            style="text-decoration: none; color: aquamarine"
+            >Delete</a
+        >
+        {% endif %}
+        <!-- <div class="topic-divider">
+            <hr />
+        </div> -->
+    </div>
+    {% endfor %}
+</div>

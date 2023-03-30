@@ -1,14 +1,80 @@
-<h2>Browse Topics</h2>
-<hr />
+<style>
+    .heading {
+        padding-left: 10px;
+        margin-top: -1px;
+        background-color: #4a4a4a;
+        border: 1px solid #2a1b3d;
+        margin-left: -10px;
+    }
+    .topicsList {
+        padding-left: 10px;
+        background-color: #4a4a4a;
+        margin-top: -5px;
+        margin-left: -10px;
+        padding-top: 1px;
+        padding-bottom: 170%;
+    }
+    .topic-divider {
+        margin-left: -10px;
+    }
+    .topics-list {
+        height: 55px;
+        width: 330px;
+        background-color: rgba(255, 255, 255, 0.13);
 
-<div>
-    <p class="topics"><a href="{% url 'home' %}">All</a></p>
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
+    .topics-list-all {
+        height: 55px;
+        width: 330px;
+        background-color: rgba(255, 255, 255, 0.13);
+
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        padding-left: 20px;
+        margin-bottom: 10px;
+        padding-top: 10px;
+        padding-bottom: -10px;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="heading">
+    <div id="heading-text">
+        <p style="color: rgb(174, 245, 243); font-size: 25px">
+            <strong>Browse Topics</strong>
+        </p>
+    </div>
 </div>
 
-{% for topic in topics %}
-<div>
-    <p class="topics">
-        <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-    </p>
+<div class="topicsList">
+    <div>
+        <p class="topics-list-all">
+            <a
+                href="{% url 'home' %}"
+                style="text-decoration: none; font-size: 25px; color: wheat"
+                >All</a
+            >
+        </p>
+    </div>
+
+    {% for topic in topics %}
+    <div class="topics-list">
+        <p class="topics">
+            <a
+                href="{% url 'home' %}?q={{topic.name}}"
+                style="text-decoration: none; font-size: 20px; color: wheat"
+                >{{topic.name}}</a
+            >
+        </p>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}

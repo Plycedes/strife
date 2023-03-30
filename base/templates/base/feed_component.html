@@ -1,19 +1,46 @@
 <div>
     {% for room in rooms %}
-    <div>
-        <a href="{% url 'user-profile' room.host.id %}"
+    <div class="feed-components">
+        <a href="{% url 'user-profile' room.host.id %}" style="color: azure"
             >@{{room.host.username}}</a
         >
-        <h4>
+        <h4 style="color: aqua">
             {{ room.id }} --
-            <a href="{% url 'room' room.id %}">{{ room.name }}</a>
+            <a
+                href="{% url 'room' room.id %}"
+                style="color: antiquewhite; text-decoration: none"
+                >{{ room.name }}</a
+            >
         </h4>
-        <p>{{room.topic.name}}</p>
+        <p style="color: azure">{{room.topic.name}}</p>
         {% if request.user == room.host %}
-        <a href="{% url 'update-room' room.id %}">Edit</a>
-        <a href="{% url 'delete-room' room.id %}">Delete</a>
+        <a
+            href="{% url 'update-room' room.id %}"
+            style="text-decoration: none; color: aquamarine"
+            >Edit</a
+        >
+        <a
+            href="{% url 'delete-room' room.id %}"
+            style="text-decoration: none; color: aquamarine"
+            >Delete</a
+        >
         {% endif %}
-        <hr />
     </div>
     {% endfor %}
 </div>
+
+<style>
+    .feed-components {
+        height: 140px;
+        width: 950px;
+        background-color: rgba(255, 255, 255, 0.13);
+
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        padding-left: 20px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+</style>

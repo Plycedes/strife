@@ -1,17 +1,122 @@
-<a href="/">
-    <h1>LOGO</h1>
-</a>
+<style>
+    .navbar {
+        background-color: var(--menuBackgroundColor, #363636);
+        box-shadow: var(
+            --menuBoxShadow,
+            0 1px 3px 0 rgba(0, 0, 0, 0.12),
+            0 1px 2px 0 rgba(0, 0, 0, 0.24)
+        );
+        display: flex;
+        margin-top: -10px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
 
-<form method="GET" action="{% url 'home' %}">
-    <input type="text" name="q" placeholder="Search Rooms..." />
-</form>
+    .button-17 {
+        margin-left: 20px;
+        background-color: rgb(4, 179, 199);
+        border: none;
+        border-radius: 15px;
+        height: 42px;
+        margin-top: 15px;
+        padding: 10px;
+    }
 
-{% if request.user.is_authenticated %}
-<p>Hello {{ request.user }}</p>
-<a href="{% url 'logout' %}">Logout</a>
-<a href="{% url 'update-user' %}">Settings</a>
-{% else %}
-<a href="{% url 'login' %}">Login</a>
-{% endif %}
+    .searchBar {
+        padding-left: 17%;
+        padding-top: 1.5%;
+    }
+    .search-input {
+        width: 50em;
+        height: 2em;
+        border-radius: 20px;
+        padding-left: 10px;
+        font-size: 15px;
+    }
+    .loginButton {
+        padding-left: 10%;
+        padding-top: 10px;
+    }
+    .logOut {
+        display: flex;
+    }
+    .logoutButton {
+        padding-right: 8px;
+    }
+    .settingsButton {
+        padding-right: 10px;
+    }
+    .controlButtons {
+        padding-left: 20%;
+    }
+    #homeButton {
+        font-weight: 600;
+        font-family: "Titillium Web", sans-serif;
+        font-size: 20px;
+        line-height: 40px;
+        color: #08dae9;
+        text-decoration: none;
+        padding-left: 10px;
+    }
+</style>
 
-<hr />
+<div class="navbar">
+    <a href="/" id="homeButton">
+        <h1>STRIFE</h1>
+    </a>
+
+    <div class="searchBar">
+        <form method="GET" action="{% url 'home' %}">
+            <input
+                class="search-input"
+                type="text"
+                name="q"
+                placeholder="Search Rooms..."
+            />
+        </form>
+    </div>
+    <div class="controlButtons">
+        {% if request.user.is_authenticated %}
+        <p style="font-size: 20px; color: whitesmoke">
+            <strong>Hello {{ request.user }}!</strong>
+        </p>
+        <div class="logOut">
+            <div class="logoutButton">
+                <a
+                    href="{% url 'logout' %}"
+                    style="
+                        text-decoration: none;
+                        font-size: 17px;
+                        color: #66fffa;
+                    "
+                    >Logout</a
+                >
+            </div>
+            <div class="settingsButton">
+                <a
+                    href="{% url 'update-user' %}"
+                    style="
+                        text-decoration: none;
+                        font-size: 17px;
+                        color: #66fffa;
+                    "
+                    >Settings</a
+                >
+            </div>
+        </div>
+        <ul></ul>
+
+        {% else %}
+        <div class="loginButton">
+            <button class="button-17" role="button">
+                <a
+                    href="{% url 'login' %}"
+                    style="text-decoration: none; font-size: 20px; color: white"
+                    ><strong> Login </strong></a
+                >
+            </button>
+        </div>
+
+        {% endif %}
+    </div>
+</div>

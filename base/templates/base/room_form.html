@@ -1,9 +1,54 @@
 {% extends 'index.html' %} {% block content %}
 
-<div>
-    <form method="POST" action="">
+<style>
+    .room-creation-form {
+        display: flex;
+        justify-content: center;
+        padding-top: 100px;
+    }
+    .room-form {
+        height: 370px;
+        width: 350px;
+        background-color: rgba(240, 238, 238, 0.13);
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        padding: 50px 35px;
+    }
+    body {
+        background-color: #4a4a4a;
+        font-family: "Poppins", sans-serif;
+    }
+    form * {
+        font-family: "Poppins", sans-serif;
+        letter-spacing: 0.5px;
+        font-size: 16px;
+        outline: none;
+        border: none;
+        color: rgb(244, 121, 121);
+    }
+    .room-input {
+        display: block;
+        height: 50px;
+        width: 100%;
+        background-color: rgb(180, 248, 251);
+        border-radius: 3px;
+        padding: 0 10px;
+        margin-top: 8px;
+        font-size: 20px;
+        font-weight: 300;
+    }
+</style>
+
+<div class="room-creation-form">
+    <form class="room-form" method="POST" action="">
         {% csrf_token %} {{form.as_p}}
-        <input type="submit" value="Submit" />
+        <input class="room-input" type="submit" value="Submit" />
     </form>
 </div>
 

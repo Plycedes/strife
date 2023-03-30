@@ -5,27 +5,89 @@
         display: grid;
         grid-template-columns: 3fr 1fr;
     }
+    .room-data {
+        background-color: #3d3d3d;
+        margin-left: -10px;
+        padding-bottom: 1000px;
+        padding-left: 10px;
+    }
+    .topic-divider {
+        margin-left: -10px;
+    }
+    .chat-box {
+        border-radius: 10px;
+        width: 500px;
+        font-size: 20px;
+        padding-left: 7px;
+    }
+    .participants-bar {
+        background-color: #4a4a4a;
+        padding-left: 10px;
+        margin-right: -10px;
+    }
+    .heading-bar {
+        background-color: #4a4a4a;
+        margin-left: -10px;
+        margin-top: -1px;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        padding-left: 10px;
+    }
+    .chats-feed {
+        height: 55px;
+        width: 1200px;
+        background-color: rgba(255, 255, 255, 0.13);
+
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
+    .participants-list {
+        height: 55px;
+        width: 350px;
+        background-color: rgba(255, 255, 255, 0.13);
+
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
 </style>
 
 <div class="room-container">
-    <div>
-        <h1>{{room.name}}</h1>
+    <div class="room-data">
+        <h1 style="color: aqua">{{room.name}}</h1>
 
-        <p>{{ room.description }}</p>
+        <p style="color: bisque">{{ room.description }}</p>
 
         <div class="chat-wrapper">
-            <h3>Chats</h3>
-            <hr />
+            <h3 style="color: aquamarine">Chats</h3>
+            <!-- <div class="topic-divider">
+                <hr />
+            </div> -->
 
             {% for chat in chats %}
-            <div>
+            <div class="chats-feed">
                 {% if request.user == chat.user %}
-                <a href="{% url 'delete-chat' chat.id %}">Delete</a>
+                <a
+                    href="{% url 'delete-chat' chat.id %}"
+                    style="color: aquamarine; text-decoration: none"
+                    >Delete</a
+                >
                 {% endif %}
-                <small>@{{chat.user}} {{chat.created|timesince}} ago</small>
+                <small style="color: aliceblue"
+                    >@{{chat.user}} {{chat.created|timesince}} ago</small
+                >
 
-                <p>{{chat.body}}</p>
-                <hr />
+                <p style="color: blanchedalmond">{{chat.body}}</p>
+                <!-- <div class="topic-divider">
+                    <hr />
+                </div> -->
             </div>
             {% endfor %}
         </div>
@@ -34,17 +96,23 @@
         <div class="chat-form">
             <form method="POST" action="">
                 {% csrf_token %}
-                <input type="text" name="body" placeholder="Chat here..." />
+                <input
+                    class="chat-box"
+                    type="text"
+                    name="body"
+                    placeholder="Chat here..."
+                />
             </form>
         </div>
         {% endif %}
     </div>
-    <div>
-        <h3>Participants</h3>
-        <hr />
+    <div class="participants-bar">
+        <div class="heading-bar">
+            <h3 style="color: aqua; font-size: 25px">Participants</h3>
+        </div>
 
         {% for user in participants %}
-        <div>
+        <div class="participants-list">
             <p>@{{user.username}}</p>
         </div>
         {% endfor %}
